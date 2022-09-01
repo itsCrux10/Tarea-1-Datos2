@@ -6,13 +6,13 @@
 #include<sstream>
 
 
-int Algoritmos::particion(int *array, int menor, int final, int pivote){
+int Algoritmos::particion(PagedArray arreglo, int menor, int final, int pivote){
     int indice= menor;
     for (int i = menor; i <= final; i++)
     {
-        if (array[i] <= pivote)
+        if (*arreglo[i] <= pivote)
         {
-            std::swap(array[indice], array[i]);
+            std::swap(*arreglo[indice], *arreglo[i]);
             indice ++;
         }
     indice--;
@@ -21,17 +21,17 @@ int Algoritmos::particion(int *array, int menor, int final, int pivote){
     
 }
 
-int Algoritmos::Quicksort(int *array, int menor, int final){
+int Algoritmos::Quicksort(PagedArray arreglo, int menor, int final){
     if(menor<final ){
-        int pivote= array[final];
-        int indice = particion(array, menor, final, pivote);
-        Quicksort(array,menor,indice -1);
-        Quicksort(array, indice+1, final);
+        int pivote= *arreglo[final];
+        int indice = particion(arreglo, menor, final, pivote);
+        Quicksort(arreglo,menor,indice -1);
+        Quicksort(arreglo, indice+1, final);
     }
     return 0;
 }
 
-int Algoritmos::Selectionsort(int *array, int size){
+int Algoritmos::Selectionsort(PagedArray arreglo, int size){
 
     int min, aux;
     for ( int i = 0; i < size; i++)
@@ -39,34 +39,34 @@ int Algoritmos::Selectionsort(int *array, int size){
         min =i;
         for (int j = 0; j < size; i++)
         {
-            if (array[j]<array[min])
+            if (arreglo[j]<arreglo[min])
             {
                 min=j;
             }
             
         }
-        aux=array[i];
-        array[i] =  array[min];
-        array[min]= aux;
+        aux=*arreglo[i];
+        *arreglo[i] =  *arreglo[min];
+        *arreglo[min]= aux;
 
     }
     return 0;
 
 }
 
-int Algoritmos::Insertionsort(int *array, int size){
+int Algoritmos::Insertionsort(PagedArray arreglo, int size){
     int temp;
     int aux;
     for ( int i = 0; i < size; i++)
     {
         temp= i;
-        int indice = array[i];
-        while ((temp>0) && array[temp-1]>aux)
+        int indice = *arreglo[i];
+        while ((temp>0) && *arreglo[temp-1]>aux)
         {
-            array[temp] = array[temp-1];
+            *arreglo[temp] = *arreglo[temp-1];
             temp--;
         }
-        array[temp] =  aux;
+        *arreglo[temp] =  aux;
 
     }
     
